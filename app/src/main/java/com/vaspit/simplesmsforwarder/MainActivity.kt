@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @Deprecated("")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
