@@ -7,19 +7,32 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModel
+import com.vaspit.simplesmsforwarder.ui.screens.SettingsScreen
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            SimpleSMSForwarderTheme {
-            }
-        }
+
         SmsNotificationManager.createNotificationChannel(this)
         SmsPermissionManager.requestPermissions(this)
+
+        enableEdgeToEdge()
+        setContent {
+            val viewModel = viewModel<SettingsScreenViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle().value
+
+            SimpleSMSForwarderTheme {
+                SettingsScreen(
+                    state = state,
+                    onEvent = viewModel::onEvent,
+                )
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

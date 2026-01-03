@@ -1,6 +1,6 @@
 package com.vaspit.simplesmsforwarder
 
-import com.vaspit.simplesmsforwarder.model.SmsItem
+import com.vaspit.simplesmsforwarder.settings.domain.model.SmsItem
 import java.util.concurrent.ConcurrentLinkedQueue
 
 object SmsQueue {

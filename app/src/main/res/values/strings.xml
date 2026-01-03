@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleSMSForwarder</string>
+
+    <string name="settings_screen_telegram_id_title">Telegram ID</string>
+    <string name="settings_screen_save_button">Save</string>
+    <string name="settings_screen_telegram_token_title">Telegram token</string>
 </resources>

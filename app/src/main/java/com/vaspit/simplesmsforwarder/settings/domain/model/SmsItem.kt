@@ -1,4 +1,4 @@
-package com.vaspit.simplesmsforwarder.model
+package com.vaspit.simplesmsforwarder.settings.domain.model
 
 import kotlinx.serialization.Serializable
 

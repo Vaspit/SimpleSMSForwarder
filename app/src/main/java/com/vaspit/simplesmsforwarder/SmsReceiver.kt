@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
 import android.util.Log
-import com.vaspit.simplesmsforwarder.model.SmsItem
+import com.vaspit.simplesmsforwarder.settings.domain.model.SmsItem
 
 class SmsReceiver : BroadcastReceiver() {
 
