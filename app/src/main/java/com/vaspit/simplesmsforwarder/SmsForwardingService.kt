@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.os.Looper
 import android.provider.Telephony
 import android.util.Log
+import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStream
@@ -23,6 +24,7 @@ class SmsForwardingService : Service() {
     private val handler = Handler(Looper.getMainLooper())
     private val smsReceiver = SmsReceiver()
     private val executor = Executors.newSingleThreadExecutor()
+    private lateinit var securePrefsManager: SecurePrefsManager
     private val runnable = object : Runnable {
         override fun run() {
             val message = SmsQueue.messages.peek()
@@ -50,6 +52,7 @@ class SmsForwardingService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        securePrefsManager = SecurePrefsManager(application.applicationContext)
         registerReceiver(smsReceiver, IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -76,10 +79,10 @@ class SmsForwardingService : Service() {
     }
 
     private fun sendMessage(content: String): Boolean {
-        val telegramToken = BuildConfig.TELEGRAM_TOKEN
-        val telegramUserId = BuildConfig.TELEGRAM_USER_ID
+        val telegramToken = securePrefsManager.getTelegramToken()
+        val telegramUserId = securePrefsManager.getTelegramId()
 
-        if (telegramToken.isNullOrEmpty() || telegramUserId.isNullOrEmpty() || !telegramToken.contains(':')) {
+        if (telegramToken.isEmpty() || telegramUserId.isEmpty() || !telegramToken.contains(':')) {
             return false
         }
 
