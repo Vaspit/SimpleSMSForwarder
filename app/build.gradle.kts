@@ -28,12 +28,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val telegramToken = findProperty("telegram.token") ?: ""
-        val telegramUserId = findProperty("telegram.useId") ?: ""
-
-        buildConfigField("String", "TELEGRAM_TOKEN", "\"$telegramToken\"")
-        buildConfigField("String", "TELEGRAM_USER_ID", "\"$telegramUserId\"")
     }
 
     buildTypes {

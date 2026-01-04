@@ -1,5 +1,6 @@
 package com.vaspit.simplesmsforwarder.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -64,6 +65,7 @@ private fun SettingsFields(
     LazyColumn(
         modifier = modifier,
         state = rememberLazyListState(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
             SettingsItem(
