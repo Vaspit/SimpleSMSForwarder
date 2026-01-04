@@ -2,6 +2,8 @@
     <string name="app_name">SimpleSMSForwarder</string>
 
     <string name="settings_screen_telegram_id_title">Telegram ID</string>
-    <string name="settings_screen_save_button">Save</string>
+    <string name="settings_screen_telegram_parameters_saved_success">Telegram parameters saved!</string>
+    <string name="settings_screen_telegram_parameters_saved_fail">Telegram parameters saving error!</string>
     <string name="settings_screen_telegram_token_title">Telegram token</string>
+    <string name="settings_screen_save_button">Save</string>
 </resources>

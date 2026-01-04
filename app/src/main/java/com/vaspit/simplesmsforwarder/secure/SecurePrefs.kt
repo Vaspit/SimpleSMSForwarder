@@ -1,14 +1,12 @@
 package com.vaspit.simplesmsforwarder.secure
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 class SecurePrefsManager(context: Context) {
 
-    private val mutex = Mutex()
     private val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
@@ -21,28 +19,20 @@ class SecurePrefsManager(context: Context) {
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
     )
 
-    suspend fun saveTelegramToken(token: String) {
-        mutex.withLock {
-            prefs.edit().putString(KEY_TOKEN, token).apply()
-        }
+    fun saveTelegramToken(token: String) {
+        return prefs.edit { putString(KEY_TOKEN, token) }
     }
 
-    suspend fun saveTelegramId(id: String) {
-        mutex.withLock {
-            prefs.edit().putString(KEY_ID, id).apply()
-        }
+    fun saveTelegramId(id: String) {
+        return prefs.edit { putString(KEY_ID, id) }
     }
 
-    suspend fun getTelegramToken(): String {
-        return mutex.withLock {
-            prefs.getString(KEY_TOKEN, "") ?: ""
-        }
+    fun getTelegramToken(): String {
+        return prefs.getString(KEY_TOKEN, "") ?: ""
     }
 
-    suspend fun getTelegramId(): String {
-        return mutex.withLock {
-            prefs.getString(KEY_ID, "") ?: ""
-        }
+    fun getTelegramId(): String {
+        return prefs.getString(KEY_ID, "") ?: ""
     }
 
     companion object {
