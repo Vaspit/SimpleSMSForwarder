@@ -24,9 +24,6 @@ object SmsPermissionManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             add(android.Manifest.permission.QUERY_ALL_PACKAGES)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            add(android.Manifest.permission.POST_NOTIFICATIONS)
-        }
     }
 
     fun requestPermissions(activity: Activity) {
