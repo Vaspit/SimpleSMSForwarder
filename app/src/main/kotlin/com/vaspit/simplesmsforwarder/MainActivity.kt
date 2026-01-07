@@ -1,17 +1,14 @@
 package com.vaspit.simplesmsforwarder
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
@@ -20,7 +17,6 @@ import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewMod
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModelFactory
 import com.vaspit.simplesmsforwarder.ui.screens.SettingsScreen
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
-import kotlinx.coroutines.channels.consume
 
 class MainActivity : ComponentActivity() {
 
@@ -76,10 +72,12 @@ class MainActivity : ComponentActivity() {
             }
 
             if (permissionsToRequest.isNotEmpty()) {
-                Toast.makeText(this, "Some permissions were not granted. This may affect operation.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Some permissions were not granted. This may affect operation.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
-
-            startService(Intent(this, SmsForwardingService::class.java))
         }
     }
 }

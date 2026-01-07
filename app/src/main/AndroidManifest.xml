@@ -36,15 +36,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".SmsForwardingService"
-            android:exported="true"
-            android:foregroundServiceType="specialUse"
-            android:permission="android.permission.FOREGROUND_SERVICE">
-            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="SMSAndNotificationReception"/>
-        </service>
-
         <receiver
             android:name=".SmsReceiver"
             android:exported="true"
