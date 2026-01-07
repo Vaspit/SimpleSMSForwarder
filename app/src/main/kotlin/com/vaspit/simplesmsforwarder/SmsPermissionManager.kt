@@ -21,15 +21,8 @@ object SmsPermissionManager {
             add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
             add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            add(android.Manifest.permission.FOREGROUND_SERVICE)
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             add(android.Manifest.permission.QUERY_ALL_PACKAGES)
-        }
-        // Foreground service special use is only available on Android 14 and later
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            add(android.Manifest.permission.FOREGROUND_SERVICE_SPECIAL_USE)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(android.Manifest.permission.POST_NOTIFICATIONS)
