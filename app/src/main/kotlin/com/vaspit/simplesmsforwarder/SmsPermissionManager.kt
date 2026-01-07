@@ -12,12 +12,8 @@ object SmsPermissionManager {
     const val PERMISSIONS_REQUEST_CODE = 1
 
     private val permissions = mutableListOf<String>().apply {
-        add(android.Manifest.permission.INTERNET)
         add(android.Manifest.permission.RECEIVE_SMS)
         add(android.Manifest.permission.READ_SMS)
-        add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        add(android.Manifest.permission.QUERY_ALL_PACKAGES)
     }
 
     fun requestPermissions(activity: Activity) {
