@@ -1,4 +1,4 @@
-package com.vaspit.simplesmsforwarder
+package com.vaspit.simplesmsforwarder.forwarding
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,9 +7,9 @@ import android.provider.Telephony
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.vaspit.simplesmsforwarder.core.data.db.AppDatabase
-import com.vaspit.simplesmsforwarder.core.data.model.SmsEntity
-import com.vaspit.simplesmsforwarder.core.data.worker.SendSmsWorker
+import com.vaspit.simplesmsforwarder.forwarding.data.db.AppDatabase
+import com.vaspit.simplesmsforwarder.forwarding.data.model.SmsEntity
+import com.vaspit.simplesmsforwarder.forwarding.data.worker.SendSmsWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

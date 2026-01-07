@@ -1,10 +1,10 @@
-package com.vaspit.simplesmsforwarder.core.data.worker
+package com.vaspit.simplesmsforwarder.forwarding.data.worker
 
 import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.vaspit.simplesmsforwarder.core.data.db.AppDatabase
+import com.vaspit.simplesmsforwarder.forwarding.data.db.AppDatabase
 import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
 import java.net.HttpURLConnection
 import java.net.URL

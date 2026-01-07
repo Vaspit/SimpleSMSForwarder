@@ -1,4 +1,4 @@
-package com.vaspit.simplesmsforwarder.core.data.model
+package com.vaspit.simplesmsforwarder.forwarding.data.model
 
 import androidx.room.Entity
 import androidx.room.Index

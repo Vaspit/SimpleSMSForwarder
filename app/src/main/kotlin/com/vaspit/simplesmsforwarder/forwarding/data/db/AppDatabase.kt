@@ -1,11 +1,11 @@
-package com.vaspit.simplesmsforwarder.core.data.db
+package com.vaspit.simplesmsforwarder.forwarding.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.vaspit.simplesmsforwarder.core.data.dao.SmsDao
-import com.vaspit.simplesmsforwarder.core.data.model.SmsEntity
+import com.vaspit.simplesmsforwarder.forwarding.data.dao.SmsDao
+import com.vaspit.simplesmsforwarder.forwarding.data.model.SmsEntity
 
 @Database(
     entities = [SmsEntity::class],

@@ -1,10 +1,10 @@
-package com.vaspit.simplesmsforwarder.core.data.dao
+package com.vaspit.simplesmsforwarder.forwarding.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.vaspit.simplesmsforwarder.core.data.model.SmsEntity
+import com.vaspit.simplesmsforwarder.forwarding.data.model.SmsEntity
 
 @Dao
 interface SmsDao {
