@@ -3,7 +3,6 @@ package com.vaspit.simplesmsforwarder
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.pm.PackageManager
-import android.os.Build
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,14 +15,9 @@ object SmsPermissionManager {
         add(android.Manifest.permission.INTERNET)
         add(android.Manifest.permission.RECEIVE_SMS)
         add(android.Manifest.permission.READ_SMS)
-        // Add permissions conditionally based on API levels
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            add(android.Manifest.permission.QUERY_ALL_PACKAGES)
-        }
+        add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        add(android.Manifest.permission.QUERY_ALL_PACKAGES)
     }
 
     fun requestPermissions(activity: Activity) {
@@ -41,10 +35,8 @@ object SmsPermissionManager {
 
         if (permissionsToRequest.isNotEmpty()) {
             if (permissionsToShowRationale.isNotEmpty()) {
-                // Show rationale dialog if needed
                 showRationaleDialog(activity, permissionsToRequest.toTypedArray())
             } else {
-                // Request permissions directly
                 ActivityCompat.requestPermissions(activity, permissionsToRequest.toTypedArray(), PERMISSIONS_REQUEST_CODE)
             }
         }
@@ -55,7 +47,6 @@ object SmsPermissionManager {
             .setTitle("Permissions Required")
             .setMessage("This app needs the following permissions to function properly: ${permissionsToRequest.joinToString(", ")}")
             .setPositiveButton("OK") { _, _ ->
-                // Request permissions after showing rationale
                 ActivityCompat.requestPermissions(activity, permissionsToRequest, PERMISSIONS_REQUEST_CODE)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
