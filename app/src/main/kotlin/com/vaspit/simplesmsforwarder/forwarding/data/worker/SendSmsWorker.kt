@@ -6,6 +6,10 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.vaspit.simplesmsforwarder.forwarding.data.db.AppDatabase
 import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
+import com.vaspit.simplesmsforwarder.settings.data.SettingsRepositoryImpl
+import com.vaspit.simplesmsforwarder.settings.domain.repository.SettingsRepository
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetSettingsUseCase
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetSettingsUseCaseImpl
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -15,13 +19,22 @@ class SendSmsWorker(
     params: WorkerParameters
 ) : CoroutineWorker(appContext, params) {
 
-    override suspend fun doWork(): Result {
-        val db = AppDatabase.get(applicationContext)
-        val dao = db.smsDao()
-        val secure = SecurePrefsManager(applicationContext)
+    private val db = AppDatabase.get(applicationContext)
+    private val dao = db.smsDao()
+    private val securityPrefsManager = SecurePrefsManager(applicationContext)
+    private val settingsRepository: SettingsRepository = SettingsRepositoryImpl(
+        securePrefsManager = securityPrefsManager,
+    )
+    private val getSettingsUseCase: GetSettingsUseCase by lazy {
+        GetSettingsUseCaseImpl(
+            settingsRepository = settingsRepository,
+        )
+    }
 
-        val telegramToken = secure.getTelegramToken()
-        val telegramUserId = secure.getTelegramId()
+    override suspend fun doWork(): Result {
+        val settings = getSettingsUseCase.invoke()
+        val telegramUserId = settings.telegramUserId
+        val telegramToken = settings.telegramToken
 
         if (telegramToken.isEmpty() || telegramUserId.isEmpty()) {
             Log.d("SendSmsWorker", "Error! Token or telegram user ID is empty.")

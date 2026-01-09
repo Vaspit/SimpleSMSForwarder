@@ -7,11 +7,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
+import com.vaspit.simplesmsforwarder.settings.data.SettingsRepositoryImpl
+import com.vaspit.simplesmsforwarder.settings.domain.repository.SettingsRepository
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCase
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCaseImpl
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenSideEffect
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModel
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModelFactory
@@ -19,6 +22,16 @@ import com.vaspit.simplesmsforwarder.ui.screens.SettingsScreen
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val securePrefsManager: SecurePrefsManager by lazy {
+        SecurePrefsManager(applicationContext)
+    }
+    private val settingsRepository: SettingsRepository by lazy {
+        SettingsRepositoryImpl(securePrefsManager)
+    }
+    private val getIsSettingsEnteredUseCase: GetIsSettingsEnteredUseCase by lazy {
+        GetIsSettingsEnteredUseCaseImpl(settingsRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +42,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val context = LocalContext.current
-            val securePrefs = remember { SecurePrefsManager(context) }
             val viewModel = viewModel<SettingsScreenViewModel>(
-                factory = SettingsScreenViewModelFactory(securePrefs)
+                factory = SettingsScreenViewModelFactory(
+                    securePrefsManager = securePrefsManager,
+                    getIsSettingsEnteredUseCase = getIsSettingsEnteredUseCase,
+                )
             )
             val state = viewModel.state.collectAsStateWithLifecycle().value
 
