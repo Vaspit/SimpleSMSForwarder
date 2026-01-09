@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
     fun saveSettings(settings: SmsForwardingSettings)
-    fun getSettings(): SmsForwardingSettings
     fun settingsFlow(): Flow<SmsForwardingSettings>
 }

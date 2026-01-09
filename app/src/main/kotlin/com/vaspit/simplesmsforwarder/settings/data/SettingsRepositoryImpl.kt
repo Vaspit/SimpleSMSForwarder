@@ -13,10 +13,6 @@ class SettingsRepositoryImpl(
         securePrefsManager.saveSettings(settings)
     }
 
-    override fun getSettings(): SmsForwardingSettings {
-        return securePrefsManager.getSettings()
-    }
-
     override fun settingsFlow(): Flow<SmsForwardingSettings> {
         return securePrefsManager.settingsFlow()
     }

@@ -1,4 +1,4 @@
-package com.vaspit.simplesmsforwarder.forwarding
+package com.vaspit.simplesmsforwarder.forwarding.presentation
 
 import android.content.BroadcastReceiver
 import android.content.Context
