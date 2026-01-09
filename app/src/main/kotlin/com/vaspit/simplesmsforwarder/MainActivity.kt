@@ -11,7 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
-import com.vaspit.simplesmsforwarder.settings.data.SettingsRepositoryImpl
 import com.vaspit.simplesmsforwarder.settings.domain.repository.SettingsRepository
 import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCase
 import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCaseImpl
@@ -24,10 +23,10 @@ import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 class MainActivity : ComponentActivity() {
 
     private val securePrefsManager: SecurePrefsManager by lazy {
-        SecurePrefsManager(applicationContext)
+        (applicationContext as App).securePrefsManager
     }
     private val settingsRepository: SettingsRepository by lazy {
-        SettingsRepositoryImpl(securePrefsManager)
+        (applicationContext as App).settingsRepository
     }
     private val getIsSettingsEnteredUseCase: GetIsSettingsEnteredUseCase by lazy {
         GetIsSettingsEnteredUseCaseImpl(settingsRepository)

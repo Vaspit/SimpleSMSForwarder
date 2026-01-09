@@ -29,7 +29,7 @@ class SettingsScreenViewModel(
 
     init {
         subscribeOnTextFields()
-        subscribeOnParametersEntered()
+        subscribeOnIsSettingsEntered()
     }
 
     override fun onEvent(event: SettingsScreenEvent) {
@@ -65,7 +65,7 @@ class SettingsScreenViewModel(
         }
     }
 
-    private fun subscribeOnParametersEntered() {
+    private fun subscribeOnIsSettingsEntered() {
         viewModelScope.launch {
             getIsSettingsEnteredUseCase.invoke().collectLatest { isEntered ->
                 state.update { oldState ->
