@@ -4,9 +4,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.vaspit.simplesmsforwarder.R
 import com.vaspit.simplesmsforwarder.core.presentation.BaseViewModel
-import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
+import com.vaspit.simplesmsforwarder.settings.domain.model.SmsForwardingSettings
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCase
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SettingsScreenViewModel(
-    private val securePrefsManager: SecurePrefsManager
+    private val getIsSettingsEnteredUseCase: GetIsSettingsEnteredUseCase,
+    private val saveSettingsUseCase: SaveSettingsUseCase,
 ) : BaseViewModel<SettingsScreenEvent>() {
 
     var state = MutableStateFlow(
@@ -27,6 +29,23 @@ class SettingsScreenViewModel(
 
     init {
         subscribeOnTextFields()
+        subscribeOnIsSettingsEntered()
+    }
+
+    override fun onEvent(event: SettingsScreenEvent) {
+        when (event) {
+            is SettingsScreenEvent.TelegramIdValueChanged -> {
+                onTelegramIdValueChanged(event.newValue)
+            }
+
+            is SettingsScreenEvent.TelegramTokenValueChanged -> {
+                onTelegramTokenValueChanged(event.newValue)
+            }
+
+            is SettingsScreenEvent.OnSaveClicked -> {
+                onSaveClicked()
+            }
+        }
     }
 
     private fun subscribeOnTextFields() {
@@ -46,18 +65,14 @@ class SettingsScreenViewModel(
         }
     }
 
-    override fun onEvent(event: SettingsScreenEvent) {
-        when (event) {
-            is SettingsScreenEvent.TelegramIdValueChanged -> {
-                onTelegramIdValueChanged(event.newValue)
-            }
-
-            is SettingsScreenEvent.TelegramTokenValueChanged -> {
-                onTelegramTokenValueChanged(event.newValue)
-            }
-
-            is SettingsScreenEvent.OnSaveClicked -> {
-                onSaveClicked()
+    private fun subscribeOnIsSettingsEntered() {
+        viewModelScope.launch {
+            getIsSettingsEnteredUseCase.invoke().collectLatest { isEntered ->
+                state.update { oldState ->
+                    oldState.copy(
+                        isForwarderReady = isEntered
+                    )
+                }
             }
         }
     }
@@ -86,8 +101,12 @@ class SettingsScreenViewModel(
 
             val result = runCatching {
                 withContext(Dispatchers.IO) {
-                    securePrefsManager.saveTelegramToken(state.value.telegramToken.text)
-                    securePrefsManager.saveTelegramId(state.value.telegramId.text)
+                    saveSettingsUseCase.invoke(
+                        settings = SmsForwardingSettings(
+                            telegramToken = state.value.telegramToken.text,
+                            telegramUserId = state.value.telegramId.text,
+                        ),
+                    )
                 }
             }
 

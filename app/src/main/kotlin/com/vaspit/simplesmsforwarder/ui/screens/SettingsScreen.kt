@@ -13,12 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vaspit.simplesmsforwarder.R
+import com.vaspit.simplesmsforwarder.core.presentation.ButtonState
+import com.vaspit.simplesmsforwarder.core.presentation.UiText
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenEvent
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenState
+import com.vaspit.simplesmsforwarder.ui.components.ForwarderReadyFragment
 import com.vaspit.simplesmsforwarder.ui.components.SMSForwarderButton
 import com.vaspit.simplesmsforwarder.ui.components.SettingsItem
+import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
 @Composable
 fun SettingsScreen(
@@ -39,6 +44,11 @@ fun SettingsScreen(
                 telegramToken = state.telegramToken,
                 telegramId = state.telegramId,
                 onEvent = onEvent,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            ForwarderReadyFragment(
+                modifier = Modifier.fillMaxWidth(),
+                isForwarderReady = state.isForwarderReady,
             )
             Spacer(modifier = Modifier.weight(1f))
             SMSForwarderButton(
@@ -85,5 +95,21 @@ private fun SettingsFields(
                 },
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun SettingsScreenPreview() {
+    SimpleSMSForwarderTheme {
+        val state = SettingsScreenState(
+            telegramToken = TextFieldValue("siufhbfiusebfuisebfuiesbfuse"),
+            telegramId = TextFieldValue("1284817491824"),
+            buttonState = ButtonState(text = UiText.DynamicString("Save")),
+            isForwarderReady = true,
+        )
+        SettingsScreen(
+            state = state
+        ) { }
     }
 }
