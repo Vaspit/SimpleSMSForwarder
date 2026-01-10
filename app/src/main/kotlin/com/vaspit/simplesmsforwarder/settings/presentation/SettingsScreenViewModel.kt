@@ -4,9 +4,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.viewModelScope
 import com.vaspit.simplesmsforwarder.R
 import com.vaspit.simplesmsforwarder.core.presentation.BaseViewModel
-import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
 import com.vaspit.simplesmsforwarder.settings.domain.model.SmsForwardingSettings
 import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCase
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SettingsScreenViewModel(
-    private val securePrefsManager: SecurePrefsManager,
     private val getIsSettingsEnteredUseCase: GetIsSettingsEnteredUseCase,
+    private val saveSettingsUseCase: SaveSettingsUseCase,
 ) : BaseViewModel<SettingsScreenEvent>() {
 
     var state = MutableStateFlow(
@@ -101,7 +101,7 @@ class SettingsScreenViewModel(
 
             val result = runCatching {
                 withContext(Dispatchers.IO) {
-                    securePrefsManager.saveSettings(
+                    saveSettingsUseCase.invoke(
                         settings = SmsForwardingSettings(
                             telegramToken = state.value.telegramToken.text,
                             telegramUserId = state.value.telegramId.text,

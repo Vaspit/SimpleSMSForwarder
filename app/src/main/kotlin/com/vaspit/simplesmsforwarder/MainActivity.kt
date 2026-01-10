@@ -14,6 +14,8 @@ import com.vaspit.simplesmsforwarder.secure.SecurePrefsManager
 import com.vaspit.simplesmsforwarder.settings.domain.repository.SettingsRepository
 import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCase
 import com.vaspit.simplesmsforwarder.settings.domain.usecase.GetIsSettingsEnteredUseCaseImpl
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCase
+import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCaseImpl
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenSideEffect
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModel
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModelFactory
@@ -31,6 +33,9 @@ class MainActivity : ComponentActivity() {
     private val getIsSettingsEnteredUseCase: GetIsSettingsEnteredUseCase by lazy {
         GetIsSettingsEnteredUseCaseImpl(settingsRepository)
     }
+    private val saveSettingsUseCase: SaveSettingsUseCase by lazy {
+        SaveSettingsUseCaseImpl(securePrefsManager)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +47,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             val viewModel = viewModel<SettingsScreenViewModel>(
                 factory = SettingsScreenViewModelFactory(
-                    securePrefsManager = securePrefsManager,
+                    saveSettingsUseCase = saveSettingsUseCase,
                     getIsSettingsEnteredUseCase = getIsSettingsEnteredUseCase,
                 )
             )
