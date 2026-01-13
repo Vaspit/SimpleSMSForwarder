@@ -20,8 +20,8 @@ import com.vaspit.simplesmsforwarder.core.presentation.ButtonState
 import com.vaspit.simplesmsforwarder.core.presentation.UiText
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenEvent
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenState
-import com.vaspit.simplesmsforwarder.ui.components.ForwarderReadyFragment
 import com.vaspit.simplesmsforwarder.ui.components.SMSForwarderButton
+import com.vaspit.simplesmsforwarder.ui.components.SettingsFragment
 import com.vaspit.simplesmsforwarder.ui.components.SettingsItem
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
@@ -46,7 +46,7 @@ fun SettingsScreen(
                 onEvent = onEvent,
             )
             Spacer(modifier = Modifier.weight(1f))
-            ForwarderReadyFragment(
+            SettingsFragment(
                 modifier = Modifier.fillMaxWidth(),
                 isForwarderReady = state.isForwarderReady,
             )
