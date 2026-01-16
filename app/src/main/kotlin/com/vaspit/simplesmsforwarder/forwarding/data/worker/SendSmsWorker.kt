@@ -16,7 +16,7 @@ import java.net.URLEncoder
 
 class SendSmsWorker(
     appContext: Context,
-    params: WorkerParameters
+    params: WorkerParameters,
 ) : CoroutineWorker(appContext, params) {
 
     private val db = AppDatabase.get(applicationContext)

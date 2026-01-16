@@ -9,7 +9,7 @@ data class SettingsScreenState(
     val telegramToken: TextFieldValue = TextFieldValue(),
     val telegramId: TextFieldValue = TextFieldValue(),
     val buttonState: ButtonState = ButtonState(
-        text = UiText.StaticString(R.string.settings_screen_save_button)
+        text = UiText.StaticString(R.string.settings_screen_save_button),
     ),
     val isForwarderReady: Boolean = false,
 )

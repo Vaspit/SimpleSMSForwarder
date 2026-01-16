@@ -34,7 +34,7 @@ fun SettingsScreen(
         modifier = Modifier.fillMaxSize(),
     ) { innerPaddings ->
         Column(
-            Modifier.fillMaxWidth()
+            Modifier.fillMaxWidth(),
         ) {
             SettingsFields(
                 modifier = Modifier
@@ -59,7 +59,7 @@ fun SettingsScreen(
                 buttonState = state.buttonState,
                 onClick = {
                     onEvent(SettingsScreenEvent.OnSaveClicked)
-                }
+                },
             )
         }
     }
@@ -75,7 +75,7 @@ private fun SettingsFields(
     LazyColumn(
         modifier = modifier,
         state = rememberLazyListState(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
             SettingsItem(
@@ -109,7 +109,7 @@ private fun SettingsScreenPreview() {
             isForwarderReady = true,
         )
         SettingsScreen(
-            state = state
+            state = state,
         ) { }
     }
 }

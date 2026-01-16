@@ -42,8 +42,8 @@ class SmsReceiver : BroadcastReceiver() {
                         uniqueKey = uniqueKey,
                         sender = sender,
                         content = body,
-                        timestamp = timestamp
-                    )
+                        timestamp = timestamp,
+                    ),
                 )
 
                 enqueueSendWork(context)
@@ -58,7 +58,7 @@ class SmsReceiver : BroadcastReceiver() {
         WorkManager.getInstance(context).enqueueUniqueWork(
             "send_unsent_sms",
             ExistingWorkPolicy.KEEP,
-            request
+            request,
         )
     }
 }

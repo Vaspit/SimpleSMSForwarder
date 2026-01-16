@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "sms",
-    indices = [Index(value = ["uniqueKey"], unique = true)]
+    indices = [Index(value = ["uniqueKey"], unique = true)],
 )
 data class SmsEntity(
     @PrimaryKey(autoGenerate = true)

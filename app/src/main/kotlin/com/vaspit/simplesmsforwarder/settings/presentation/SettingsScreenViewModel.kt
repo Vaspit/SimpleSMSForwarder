@@ -21,7 +21,7 @@ class SettingsScreenViewModel(
 ) : BaseViewModel<SettingsScreenEvent>() {
 
     var state = MutableStateFlow(
-        SettingsScreenState()
+        SettingsScreenState(),
     )
         private set
 
@@ -57,8 +57,8 @@ class SettingsScreenViewModel(
                 state.update { oldState ->
                     oldState.copy(
                         buttonState = oldState.buttonState.copy(
-                            isEnabled = token.isNotBlank() && id.isNotBlank()
-                        )
+                            isEnabled = token.isNotBlank() && id.isNotBlank(),
+                        ),
                     )
                 }
             }
@@ -70,7 +70,7 @@ class SettingsScreenViewModel(
             getIsSettingsEnteredUseCase.invoke().collectLatest { isEntered ->
                 state.update { oldState ->
                     oldState.copy(
-                        isForwarderReady = isEntered
+                        isForwarderReady = isEntered,
                     )
                 }
             }
@@ -94,8 +94,8 @@ class SettingsScreenViewModel(
             state.update { oldState ->
                 oldState.copy(
                     buttonState = oldState.buttonState.copy(
-                        isLoading = true
-                    )
+                        isLoading = true,
+                    ),
                 )
             }
 
@@ -116,7 +116,7 @@ class SettingsScreenViewModel(
                     telegramToken = TextFieldValue(),
                     buttonState = oldState.buttonState.copy(
                         isLoading = false,
-                    )
+                    ),
                 )
             }
 
