@@ -4,8 +4,12 @@
     <string name="settings_screen_forwarding_not_ready">Please fill the token and user ID.</string>
     <string name="settings_screen_forwarding_ready">Ready to work!</string>
     <string name="settings_screen_telegram_id_title">Telegram ID</string>
+    <string name="settings_screen_telegram_id_placeholder">Enter your Telegram ID</string>
     <string name="settings_screen_telegram_parameters_saved_success">Telegram parameters saved!</string>
     <string name="settings_screen_telegram_parameters_saved_fail">Telegram parameters saving error!</string>
     <string name="settings_screen_telegram_token_title">Telegram token</string>
+    <string name="settings_screen_telegram_token_placeholder">Enter your Telegram token</string>
     <string name="settings_screen_save_button">Save</string>
+
+    <string name="clear_text_field_button">Clear text field</string>
 </resources>

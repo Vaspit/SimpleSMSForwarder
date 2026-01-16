@@ -45,6 +45,14 @@ class SettingsScreenViewModel(
             is SettingsScreenEvent.OnSaveClicked -> {
                 onSaveClicked()
             }
+
+            is SettingsScreenEvent.OnClearTelegramIdClicked -> {
+                onClearTelegramId()
+            }
+
+            is SettingsScreenEvent.OnClearTelegramTokenClicked -> {
+                onClearTelegramToken()
+            }
         }
     }
 
@@ -74,6 +82,22 @@ class SettingsScreenViewModel(
                     )
                 }
             }
+        }
+    }
+
+    private fun onClearTelegramId() {
+        state.update { state ->
+            state.copy(
+                telegramId = TextFieldValue(),
+            )
+        }
+    }
+
+    private fun onClearTelegramToken() {
+        state.update { state ->
+            state.copy(
+                telegramToken = TextFieldValue(),
+            )
         }
     }
 

@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.vaspit.simplesmsforwarder.R
 import com.vaspit.simplesmsforwarder.core.presentation.ButtonState
@@ -81,8 +81,12 @@ private fun SettingsFields(
             SettingsItem(
                 title = stringResource(R.string.settings_screen_telegram_token_title),
                 value = telegramToken,
+                placeholder = stringResource(R.string.settings_screen_telegram_token_placeholder),
                 onValueChange = { newValue ->
                     onEvent(SettingsScreenEvent.TelegramTokenValueChanged(newValue))
+                },
+                onClearTextClick = {
+                    onEvent(SettingsScreenEvent.OnClearTelegramTokenClicked)
                 },
             )
         }
@@ -90,15 +94,19 @@ private fun SettingsFields(
             SettingsItem(
                 title = stringResource(R.string.settings_screen_telegram_id_title),
                 value = telegramId,
+                placeholder = stringResource(R.string.settings_screen_telegram_id_placeholder),
                 onValueChange = { newValue ->
                     onEvent(SettingsScreenEvent.TelegramIdValueChanged(newValue))
+                },
+                onClearTextClick = {
+                    onEvent(SettingsScreenEvent.OnClearTelegramIdClicked)
                 },
             )
         }
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun SettingsScreenPreview() {
     SimpleSMSForwarderTheme {
