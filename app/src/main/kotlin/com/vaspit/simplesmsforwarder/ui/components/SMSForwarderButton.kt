@@ -10,7 +10,7 @@ import com.vaspit.simplesmsforwarder.core.presentation.ButtonState
 @Composable
 fun SMSForwarderButton(
     modifier: Modifier = Modifier,
-    buttonState: ButtonState ,
+    buttonState: ButtonState,
     onClick: () -> Unit,
 ) {
     val context = LocalContext.current

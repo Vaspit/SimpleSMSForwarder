@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class GetIsSettingsEnteredUseCaseImpl(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
 ) : GetIsSettingsEnteredUseCase {
 
     override fun invoke(): Flow<Boolean> {

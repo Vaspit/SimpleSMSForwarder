@@ -8,7 +8,7 @@ sealed class UiText {
 
     data class StaticString(
         val resourceId: Int,
-        val args: List<Any> = emptyList()
+        val args: List<Any> = emptyList(),
     ) : UiText()
 
     fun asString(context: Context): String {

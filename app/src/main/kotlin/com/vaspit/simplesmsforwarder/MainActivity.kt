@@ -19,7 +19,7 @@ import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCase
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenSideEffect
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModel
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModelFactory
-import com.vaspit.simplesmsforwarder.ui.screens.SettingsScreen
+import com.vaspit.simplesmsforwarder.ui.screens.settings.SettingsScreen
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 factory = SettingsScreenViewModelFactory(
                     saveSettingsUseCase = saveSettingsUseCase,
                     getIsSettingsEnteredUseCase = getIsSettingsEnteredUseCase,
-                )
+                ),
             )
             val state = viewModel.state.collectAsStateWithLifecycle().value
 
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             Toast.makeText(
                                 this@MainActivity,
                                 context.getString(sideEffect.resId),
-                                Toast.LENGTH_SHORT
+                                Toast.LENGTH_SHORT,
                             ).show()
                         }
                     }
@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
                 Toast.makeText(
                     this,
                     "Some permissions were not granted. This may affect operation.",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 ).show()
             }
         }

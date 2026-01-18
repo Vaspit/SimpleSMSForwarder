@@ -21,7 +21,7 @@ class SettingsScreenViewModel(
 ) : BaseViewModel<SettingsScreenEvent>() {
 
     var state = MutableStateFlow(
-        SettingsScreenState()
+        SettingsScreenState(),
     )
         private set
 
@@ -45,20 +45,29 @@ class SettingsScreenViewModel(
             is SettingsScreenEvent.OnSaveClicked -> {
                 onSaveClicked()
             }
+
+            is SettingsScreenEvent.OnClearTelegramIdClicked -> {
+                onClearTelegramId()
+            }
+
+            is SettingsScreenEvent.OnClearTelegramTokenClicked -> {
+                onClearTelegramToken()
+            }
         }
     }
 
     private fun subscribeOnTextFields() {
         viewModelScope.launch {
             state.collectLatest {
-                val token = it.telegramToken.text
-                val id = it.telegramId.text
+                val settingsFieldsState = it.settingsFieldsState
+                val id = settingsFieldsState.telegramId.text
+                val token = settingsFieldsState.telegramToken.text
 
                 state.update { oldState ->
                     oldState.copy(
                         buttonState = oldState.buttonState.copy(
-                            isEnabled = token.isNotBlank() && id.isNotBlank()
-                        )
+                            isEnabled = token.isNotBlank() && id.isNotBlank(),
+                        ),
                     )
                 }
             }
@@ -70,53 +79,81 @@ class SettingsScreenViewModel(
             getIsSettingsEnteredUseCase.invoke().collectLatest { isEntered ->
                 state.update { oldState ->
                     oldState.copy(
-                        isForwarderReady = isEntered
+                        isForwarderReady = isEntered,
                     )
                 }
             }
         }
     }
 
+    private fun onClearTelegramId() {
+        state.update { currentState ->
+            currentState.copy(
+                settingsFieldsState = currentState.settingsFieldsState.copy(
+                    telegramId = TextFieldValue(),
+                ),
+            )
+        }
+    }
+
+    private fun onClearTelegramToken() {
+        state.update { currentState ->
+            currentState.copy(
+                settingsFieldsState = currentState.settingsFieldsState.copy(
+                    telegramToken = TextFieldValue(),
+                ),
+            )
+        }
+    }
+
     private fun onTelegramIdValueChanged(newValue: TextFieldValue) {
-        state.update { state ->
-            state.copy(telegramId = newValue)
+        state.update { currentState ->
+            currentState.copy(
+                settingsFieldsState = currentState.settingsFieldsState.copy(
+                    telegramId = newValue,
+                ),
+            )
         }
     }
 
     private fun onTelegramTokenValueChanged(newValue: TextFieldValue) {
-        state.update { state ->
-            state.copy(telegramToken = newValue)
+        state.update { currentState ->
+            currentState.copy(
+                settingsFieldsState = currentState.settingsFieldsState.copy(
+                    telegramToken = newValue,
+                ),
+            )
         }
     }
 
     private fun onSaveClicked() {
         viewModelScope.launch {
-            state.update { oldState ->
-                oldState.copy(
-                    buttonState = oldState.buttonState.copy(
-                        isLoading = true
-                    )
+            state.update { currentState ->
+                currentState.copy(
+                    buttonState = currentState.buttonState.copy(
+                        isLoading = true,
+                    ),
                 )
             }
 
             val result = runCatching {
                 withContext(Dispatchers.IO) {
+                    val settingsFieldsState = state.value.settingsFieldsState
                     saveSettingsUseCase.invoke(
                         settings = SmsForwardingSettings(
-                            telegramToken = state.value.telegramToken.text,
-                            telegramUserId = state.value.telegramId.text,
+                            telegramToken = settingsFieldsState.telegramToken.text,
+                            telegramUserId = settingsFieldsState.telegramId.text,
                         ),
                     )
                 }
             }
 
-            state.update { oldState ->
-                oldState.copy(
-                    telegramId = TextFieldValue(),
-                    telegramToken = TextFieldValue(),
-                    buttonState = oldState.buttonState.copy(
+            state.update { currentState ->
+                currentState.copy(
+                    buttonState = currentState.buttonState.copy(
                         isLoading = false,
-                    )
+                        isEnabled = true,
+                    ),
                 )
             }
 
