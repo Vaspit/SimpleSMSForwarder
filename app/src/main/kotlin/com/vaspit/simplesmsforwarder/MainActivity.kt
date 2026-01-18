@@ -19,7 +19,7 @@ import com.vaspit.simplesmsforwarder.settings.domain.usecase.SaveSettingsUseCase
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenSideEffect
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModel
 import com.vaspit.simplesmsforwarder.settings.presentation.SettingsScreenViewModelFactory
-import com.vaspit.simplesmsforwarder.ui.screens.SettingsScreen
+import com.vaspit.simplesmsforwarder.ui.screens.settings.SettingsScreen
 import com.vaspit.simplesmsforwarder.ui.theme.SimpleSMSForwarderTheme
 
 class MainActivity : ComponentActivity() {
