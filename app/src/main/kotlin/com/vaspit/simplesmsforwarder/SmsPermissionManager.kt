@@ -40,14 +40,18 @@ object SmsPermissionManager {
 
     private fun showRationaleDialog(activity: Activity, permissionsToRequest: Array<String>) {
         AlertDialog.Builder(activity)
-            .setTitle("Permissions Required")
+            .setTitle(activity.getString(R.string.permissions_dialog_title))
             .setMessage("This app needs the following permissions to function properly: ${permissionsToRequest.joinToString(", ")}")
-            .setPositiveButton("OK") { _, _ ->
+            .setPositiveButton(activity.getString(R.string.permissions_dialog_positive_button)) { _, _ ->
                 ActivityCompat.requestPermissions(activity, permissionsToRequest, PERMISSIONS_REQUEST_CODE)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(activity.getString(R.string.permissions_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
-                Toast.makeText(activity, "Permissions are required for the app to work properly.", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    activity,
+                    activity.getString(R.string.permissions_dialog_negative_hint),
+                    Toast.LENGTH_LONG,
+                ).show()
             }
             .create()
             .show()

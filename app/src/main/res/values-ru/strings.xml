@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">SimpleSMSForwarder</string>
+
+    <string name="settings_screen_forwarding_not_ready">Пожалуйста заполните токен бота и user ID.</string>
+    <string name="settings_screen_forwarding_ready">Готов к работе!</string>
+    <string name="settings_screen_telegram_id_title">Телеграм ID</string>
+    <string name="settings_screen_telegram_id_placeholder">Введите свой Telegram ID</string>
+    <string name="settings_screen_telegram_parameters_saved_success">Параметры сохранены!</string>
+    <string name="settings_screen_telegram_parameters_saved_fail">Ошибка сохранения параметров!</string>
+    <string name="settings_screen_telegram_token_title">Телеграм токен</string>
+    <string name="settings_screen_telegram_token_placeholder">Введите токен Telegram бота</string>
+    <string name="settings_screen_save_button">Сохранить</string>
+
+    <string name="clear_text_field_button">Очистить текстовое поле</string>
+
+    <string name="permissions_dialog_title">Требуются разрешения</string>
+    <string name="permissions_dialog_positive_button" translatable="false">OK</string>
+    <string name="permissions_dialog_negative_button">Отмена</string>
+    <string name="permissions_dialog_negative_hint">Требуются разрешения, чтобы приложение работало корректно.</string>
+</resources>
